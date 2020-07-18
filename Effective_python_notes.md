@@ -1,7 +1,12 @@
 # Effective python notes
+<!-- GFM-TOC -->
+* [一、pythonic](##pythonic)
+
+<!-- GFM-TOC -->
 
 ## pythonic
 ### （1）弄清你的python版本
+
 ``` python
 # in terminal
 python --version 
@@ -64,3 +69,73 @@ with open(filename, 'w', encoding='utf-8') as f:
 如果要直接读写二进制文件，则将'r', 'w' 相应换为 'rb', wb'即可。
 
 ### （4）字符串格式化（F-string）
+
+python提供了四种格式化字符串方法。
+
+1. C 风格的 % 格式
+2. format函数
+3. str.format()方法
+4. F-string
+
+有人喜欢用第一种，有人喜欢用第三种（比如我），而作者推荐用第四种。我的建议是选择一种用熟练就行，推荐第四种F-string。
+因为F-string可以少打很多字。
+示例：
+``` python
+In [1]: key = 'my_val'
+
+In [2]: value = 1.2345
+
+# C 风格 % 格式
+In [3]: s1 = '%-10s = %.2f' % (key, value)
+
+In [4]: s1
+Out[4]: 'my_val     = 1.23'
+
+# str.format()函数
+In [5]: s2 = '{:<10} = {:.2f}'.format(key, value)
+
+In [6]: s2
+Out[6]: 'my_val     = 1.23'
+
+# F-string格式
+In [7]: s3 = f'{key:<10} = {value:.2f}'
+
+In [8]: s3
+Out[8]: 'my_val     = 1.23'
+```
+可以看出F-string和前两种方法最大的区别就是前两种方法对变量没有直接访问权，需要在格式化字符串中设置占位符，然后通过位置参数（也支持键值对参数）将变量值传递进去。而F-string对同作用域的变量有直接访问权。
+
+以下示例可能更能说明这一点。
+``` python
+# 自定义字符串处理函数，大小写相间。
+In [24]: def personality(s):
+    ...:     new_s = ''
+    ...:     for i in range(len(s)):
+    ...:         if i % 2:
+    ...:             new_s += s[i].upper()
+    ...:         else:
+    ...:             new_s += s[i].lower()
+    ...:     return new_s
+    
+In [25]: s = 'hello'
+
+In [26]: s1 = '%s world' % personality(s)
+
+In [27]: s1
+Out[27]: 'hElLo world'
+
+In [28]: s2 = '{} world'.format(personality(s))
+
+In [29]: s2
+Out[29]: 'hElLo world'
+
+In [32]: s3 = f'{personality(s)} world'
+
+In [33]: s3
+Out[33]: 'hElLo world'
+```
+F-string可以直接在格式化字符串中执行我的自定义函数。
+
+另外，如果最终在三种方法中选择了F-string，别忘了F-string的 ``f``前缀。
+
+### （5）使用辅助函数代替复杂的表达式
