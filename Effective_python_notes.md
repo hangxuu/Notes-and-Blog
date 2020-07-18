@@ -130,12 +130,12 @@ In [29]: s2
 Out[29]: 'hElLo world'
 
 In [32]: s3 = f'{personality(s)} world'
-
+    
 In [33]: s3
 Out[33]: 'hElLo world'
 ```
 F-string可以直接在格式化字符串中执行我的自定义函数。
 
-另外，如果最终在三种方法中选择了F-string，别忘了F-string的 ``f``前缀。
+另外，如果你最终在三种方法中选择了F-string，千万别忘了F-string的 ``f``前缀。
 
 ### （5）使用辅助函数代替复杂的表达式
