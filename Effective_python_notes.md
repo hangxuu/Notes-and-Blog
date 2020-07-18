@@ -1,6 +1,6 @@
 # Effective python notes
 <!-- GFM-TOC -->
-* [一、pythonic](##pythonic)
+* [一、pythonic](#pythonic)
 
 <!-- GFM-TOC -->
 
