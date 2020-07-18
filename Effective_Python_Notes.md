@@ -1,10 +1,11 @@
-# Effective python notes
-<!-- GFM-TOC -->
-* [一、pythonic](#pythonic)
+# Effective Python Notes
 
 <!-- GFM-TOC -->
+* [一、Pythonic](#Pythonic)
+<!-- GFM-TOC -->
 
-## pythonic
+## Pythonic
+
 ### （1）弄清你的python版本
 
 ``` python
@@ -18,12 +19,15 @@ print(sys.version_info)
 # or
 print(sys.version)
 ```
+
 这条建议的目的是：**确保机器执行程序的python版本和你预期的为同一版本。** 可以在程序中加层保障，比如该程序需要python3.6及以上版本才可以执行，那么可在程序开头加上以下代码：
+
 ``` python
 import sys
 assert sys.version_info >= (3, 6)
 
 ```
+
 这样，当机器执行的python版本小于3.6时就会报``AssertionError``异常。此时，你可能需要做的就是安装合适版本的python解释器。
 
 ### （2）PEP8规范
