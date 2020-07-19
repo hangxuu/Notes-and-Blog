@@ -150,3 +150,45 @@ F-string可以直接在格式化字符串中执行我的自定义函数。
 2. 代码可复用。
 
 ### （6）使用序列解包完成多变量赋值
+
+先看一下python实现的冒泡排序。
+``` python
+def bubble_sort(lst):
+    for _ in range(len(lst)):
+        for i in range(1, len(lst)):
+            if lst[i] < lst[i-1]:
+                # 数据交换
+                lst[i], lst[i-1] = lst[i-1], lst[i]
+```
+如果采用C风格方式编写，则是如下代码：
+``` python
+def bubble_sort(lst):
+    for _ in range(len(lst)):
+        for i in range(1, len(lst)):
+            if lst[i] < lst[i-1]:
+                # 数据交换
+                tmp = lst[i]
+                lst[i] = lst[i-1]
+                lst[i-1] = tmp
+```
+它们的区别就在于数据交换部分。C语言风格的语法需要一个临时变量``tmp``来保存中间结果以完成交换。而python则使用 **序列解包** 省掉了这个临时变量。使代码量更少且可读性高。
+
+原理： **其实序列解包也用到了临时变量，具体说是临时元组。序列解包先计算赋值号右侧，将计算结果保存到一个临时元组中，然后将这个临时元组再赋值给赋值号左侧。这就是``a, b = b, a``能正常工作的原因。**
+
+序列解包除了用于多变量赋值，也常用于``for``循环中。例：
+``` python
+persons = [('taylor', 29), ('hans', 25), ('bob', 12)]
+
+# 序列解包
+for name, age in persons:
+    print(f'{name} is {age} years old')
+```
+直接对列表``person``里的元素进行解包，赋予它们更有意义的变量名称，可以让程序更易读。避免写成下面这样：
+``` python
+for item in persons:
+    name = item[0]
+    age = item[1]
+    print(f'{name} is {age} years old')
+```
+
+### （7）多使用 enumerate 而不是 range
