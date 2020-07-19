@@ -67,7 +67,7 @@ def run(example_list):
 
 项目的目录树如下图，同级目录已用相同颜色标出。
 
-![目录树](https://github.com/hangxuu/blog/blob/master/path_1.png)
+![目录树](https://github.com/hangxuu/blog/blob/master/images/path_1.png)
 
 ``E:\test_dir\test_path\codes\read_file.py`` 文件如下：
 ``` python
