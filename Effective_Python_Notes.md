@@ -2,6 +2,7 @@
 
 <!-- GFM-TOC -->
 * [一、Pythonic](#Pythonic)
+* [二、并发与并行](#并发与并行)
 <!-- GFM-TOC -->
 
 ## Pythonic
@@ -328,3 +329,6 @@ while fresh_fruit := pick_fruit():
         batch = make_juice(fruit, count)
 ```
 把计算本身放到条件语句中，而不是只把计算结果放到条件语句中。
+
+## 并发与并行
+
