@@ -332,3 +332,17 @@ while fresh_fruit := pick_fruit():
 
 ## 并发与并行
 
+### （52）使用``subprocess``模块管理子进程
+
+如果需要在python脚本中执行系统命令，可以用``os``模块，比如执行``os.system('cd /; ls')``。现在推荐使用``subprocess``模块来完成这些功能。
+```python
+In [35]: import subprocess
+
+In [36]: result = subprocess.run(['echo',  'hello word'], capture_output=True, encoding='utf-8')
+
+In [37]: print(result.stdout)
+hello word
+
+```
+等有需求再来具体学习这个模块吧。
+
