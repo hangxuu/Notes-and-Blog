@@ -346,3 +346,12 @@ hello word
 ```
 等有需求再来具体学习这个模块吧。
 
+### （53）Use Threads for Blocking I/O, Avoid for Parallelism
+
+GIL：全局解释器锁。
+
+Cpython执行python程序分为两步：1，把源程序翻译成字节码；2，使用基于堆栈的解释器运行字节码（字节码解释器的状态必须在python程序运行时保持一致）。GIL是互斥锁，以防止Cpython受到抢占式多线程的影响。
+
+GIL带来了很大的副作用，它让并行计算变的不可能。因为Cpython解释器只能用一个CPU核心。（可以用``concurrent.futures``实现真并行）
+
+那么为什么python还要支持多线程呢？1，至少Cpython可以保证公平地运行你的各个线程。2，多线程可以处理阻塞I/O（比如读写文件）。这是因为当陷入系统调用时，python解释器会释放GIL，当系统调用返回时它再重新获得GIL。
