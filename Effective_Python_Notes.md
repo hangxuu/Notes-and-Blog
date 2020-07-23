@@ -355,3 +355,31 @@ Cpython执行python程序分为两步：1，把源程序翻译成字节码；2�
 GIL带来了很大的副作用，它让并行计算变的不可能。因为Cpython解释器只能用一个CPU核心。（可以用``concurrent.futures``实现真并行）
 
 那么为什么python还要支持多线程呢？1，至少Cpython可以保证公平地运行你的各个线程。2，多线程可以处理阻塞I/O（比如读写文件）。这是因为当陷入系统调用时，python解释器会释放GIL，当系统调用返回时它再重新获得GIL。
+
+### （54）Use Lock to Prevent Data Races in Threads
+
+虽然python有GIL，但如果你在程序中使用多个线程访问同一个数据变量，还是可能会发生数据争用（Cpython保证公平运行你的各个线程，它可能在任意时候执行线程切换）。
+
+使用``Lock``类（互斥锁）来保证各个线程对共享数据对象访问/修改的原子性。
+
+示例：
+```python
+class Counter:
+    def __init__(self):
+        self.count = 0
+
+    def increment(self, offset):
+        self.count += offset
+
+from threading import Lock
+
+class LockingCounter:
+    def __init__(self):
+        self.lock = Lock()
+        self.count = 0
+
+    def increment(self, offset):
+        with self.lock:
+            self.count += offset
+```
+在``Counter``类中，``self.count += offset``不是原子操作。``LockingCounter``类中，使用``with self.lock``对``with``语句代码块上锁后，``self.count += offset``就有原子性了，此时可以保证多线程中数据的一致性。
