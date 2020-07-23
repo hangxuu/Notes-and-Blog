@@ -383,3 +383,52 @@ class LockingCounter:
             self.count += offset
 ```
 在``Counter``类中，``self.count += offset``不是原子操作。``LockingCounter``类中，使用``with self.lock``对``with``语句代码块上锁后，``self.count += offset``就有原子性了，此时可以保证多线程中数据的一致性。
+
+### （55）Use Queue to Coordinate Work Between Threads
+
+上一节（item 54）强调原子性，多个线程访问同一数据对象，要保证一个线程对数据的修改不会被另一个线程所破坏。该节不仅要求原子性，还增加了顺序性。比如必须线程A先把数据写入共享数据对象，线程B才能正常工作。这样的一系列线程就构成了一条``pipeline``。你可以用锁``Lock``和忙等待来保证原子性和顺序性。但会有几个问题：
+
+1. 忙等待浪费CPU运算。比如生产者-消费者问题，如果生产者速度很慢，那么消费者就要等待生产者生产数据，这里的等待一般是忙等待。
+2. 内存溢出风险。还是生产者-消费者问题，如果生产者速度很快，那么消费者来不及消耗。生产者生产的数据就会随着时间推移越来越多，直至耗尽内存。
+
+使用``Queue``可以解决上述问题。当``Queue``为空时，它的``get``方法会被阻塞----解决忙等待；可以初始化``Queue``时指定缓冲区大小----解决内存溢出。
+
+使用``Queue``实现生产者-消费者问题：
+```python
+from queue import Queue
+from threading import Thread
+
+# 缓冲区大小为10，当my_queue.qsize() == 10时，阻塞put方法
+my_queue = Queue(10)
+
+def consumer():
+    i = 0
+    while True:
+        my_queue.get()
+        print(f"Consuming item {i}.")
+        my_queue.task_done()    # 对每一个item调用task_done()
+        i += 1
+        if i == 100:
+            break
+
+def producer():
+    i = 0
+    while True:
+        print(f"Producing item {i}")
+        my_queue.put(i)
+        i += 1
+        if i == 100:
+            # 假设只生产100个元素，则 i == 100时任务完成
+            print('Producer done')
+            break
+
+thread_consumer = Thread(target=consumer)
+thread_consumer.start()
+thread_producer = Thread(target=producer)
+thread_producer.start()
+
+my_queue.join()    # 只有消费者消费每个item后都调用了task_done()，这里join才会解除阻塞。也就是说，一旦my_queue.join()执行，任务就一定完成了。下面的 thread_consumer.join() 甚至是多余的。
+thread_consumer.join()
+thread_producer.join()
+print(f"my_queue size: {my_queue.qsize()}")
+```
