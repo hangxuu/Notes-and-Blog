@@ -432,3 +432,25 @@ thread_consumer.join()
 thread_producer.join()
 print(f"my_queue size: {my_queue.qsize()}")
 ```
+
+### （56）Know How to Recognize When Concurrency Is Necessary
+以下5节（56 - 60）说的是一个主题。
+- **fan-out** 生成新的并发单元。
+- **fan-in** 等待现有的并发单元执行完成。
+
+### （57）Avoid Creating New Thread Instances for On-demand Fan-out
+
+- 线程的缺点。频繁的创建浪费时间，大量的线程浪费内存。
+- 多线程难于调试。
+
+### （58）Understand How Using Queue for Concurrency Requires Refactoring
+
+使用``Queue``能解决一些问题。比如可以控制总的线程数量（避免无限``fan-out``，但也降低了并发的灵活性）。但同时需要做大量的代码重构。
+
+### （59）Consider ThreadPoolExecutor When Threads Are Necessary for Concurrency
+
+使用``ThreadPoolExecutor``（线程池）可以只做少量代码重构就能完成``Queue``的功能。但同时存在``Queue``的缺点--提前限制了线程总数，降低了并发的灵活性。
+
+### （60）Achieve Highly Concurrent I/O with Coroutines
+
+协程是以上四节的解决方案。协程使用``async/await``关键字定义。支持同时运行成千上万个并发单元，却没有线程的时间和空间开销。
