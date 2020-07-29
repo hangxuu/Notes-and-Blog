@@ -85,8 +85,8 @@ if __name__ == "__main__":
     joe = Customer('John Doe', 'plus')
     ann = Customer('Ann Smith', 'normal')
     cart = [
-        LineItem('百香果', 3, 39),
-        LineItem('大台芒', 2, 29),
+        LineItem('百香果', 2, 29),
+        LineItem('大台芒', 3, 39),
     ]
     print(Order(joe, cart, promo_99_for_4))
     # total: 175, due: 128.00

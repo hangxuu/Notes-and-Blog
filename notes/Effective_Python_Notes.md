@@ -330,6 +330,14 @@ while fresh_fruit := pick_fruit():
 ```
 把计算本身放到条件语句中，而不是只把计算结果放到条件语句中。
 
+## 列表和字典
+
+### （11）Know How to Slice Sequences
+python列表切片方法很多，使用时记住以下要点：
+1. ``a[start: end]``包含``start``，不含``end``，也就是``[start, end)``左闭右开区间。
+2. ``need = lst[:4]``好于``need = lst[0:4]``，``need = lst[4:]``好于``need = lst[4:len(lst)]``。即如果从开头开始取元素或者取到最后一个元素，则可以省略掉相应的``0``或者``len(lst)``。
+3. 可以使用``b = a[:]``来获得数组``a``的一份拷贝。
+
 ## 并发与并行
 
 ### （52）使用``subprocess``模块管理子进程
