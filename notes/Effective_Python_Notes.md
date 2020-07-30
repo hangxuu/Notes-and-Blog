@@ -2,7 +2,8 @@
 
 <!-- GFM-TOC -->
 * [一、Pythonic](#Pythonic)
-* [二、并发与并行](#并发与并行)
+* [二、列表和字典](#列表和字典)
+* [三、并发与并行](#并发与并行)
 <!-- GFM-TOC -->
 
 ## Pythonic
@@ -337,6 +338,10 @@ python列表切片方法很多，使用时记住以下要点：
 1. ``a[start: end]``包含``start``，不含``end``，也就是``[start, end)``左闭右开区间。
 2. ``need = lst[:4]``好于``need = lst[0:4]``，``need = lst[4:]``好于``need = lst[4:len(lst)]``。即如果从开头开始取元素或者取到最后一个元素，则可以省略掉相应的``0``或者``len(lst)``。
 3. 可以使用``b = a[:]``来获得数组``a``的一份拷贝。
+
+### （12）Avoid Striding and Slicing in a Single Expression
+``lst[start:end:stride]``在区间``[start, end)``中每隔``stride``个元素取一个元素，结果是一个列表。
+这条建议不要同时使用这三个参数，并且``stride``尽量不要取负值。以提高代码的可读性。
 
 ## 并发与并行
 
