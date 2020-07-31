@@ -343,6 +343,23 @@ python列表切片方法很多，使用时记住以下要点：
 ``lst[start:end:stride]``在区间``[start, end)``中每隔``stride``个元素取一个元素，结果是一个列表。
 这条建议不要同时使用这三个参数，并且``stride``尽量不要取负值。以提高代码的可读性。
 
+### （13）Prefer Catch-All Unpacking Over Slicing
+
+使用``*expression``表达式来获取序列所有剩余值。而不要使用下标硬编码。使用示例：
+```python
+In [1]: lst = [1,2,3,4,5,6,7,8,9]
+
+In [2]: one, two, *other = lst
+
+In [3]: print(one, two, other)
+1 2 [3, 4, 5, 6, 7, 8, 9]
+# starred expression 可以放在任意位置。
+In [4]: one, *other, nine = lst
+
+In [5]: print(one, nine, other)
+1 9 [2, 3, 4, 5, 6, 7, 8]
+```
+
 ## 并发与并行
 
 ### （52）使用``subprocess``模块管理子进程
