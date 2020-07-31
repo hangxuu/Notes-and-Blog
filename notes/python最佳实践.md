@@ -1,4 +1,6 @@
-### 多用 assert
+说“最佳”实践确实有些猖狂，就当成是一些建议吧。
+
+### （1）多用 assert
 
 ``` python
 assert expression [, arguments]
