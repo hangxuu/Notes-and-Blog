@@ -5,3 +5,6 @@
 - [python最佳实践](https://github.com/hangxuu/Notes-and-Blog/blob/master/notes/python%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.md)
 ## 软件工程
 - [设计模式](https://github.com/hangxuu/Notes-and-Blog/blob/master/notes/python%E4%B8%AD%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F.md)
+
+## Haskell系列
+-[懂一点Haskell（一）](https://github.com/hangxuu/Notes-and-Blog/blob/master/notes/%E6%87%82%E4%B8%80%E7%82%B9Haskell%EF%BC%88%E4%B8%80%EF%BC%89.md)
