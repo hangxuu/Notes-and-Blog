@@ -484,3 +484,7 @@ print(f"my_queue size: {my_queue.qsize()}")
 ### （60）Achieve Highly Concurrent I/O with Coroutines
 
 协程是以上四节的解决方案。协程使用``async/await``关键字定义。支持同时运行成千上万个并发单元，却没有线程的时间和空间开销。
+
+### （61）Know How to Port Threaded I/O to asyncio
+
+这节作者举了个例子把一个多线程阻塞IO程序修改成了协程异步IO版本。主要说明``with``，``for`` 等一些语言特性都有对应的异步版本。两个脚本见[number_guess.py](https://github.com/hangxuu/Notes-and-Blog/tree/master/codes/effective_python/item61/number_guess.py) 和 [asnyc_number_guess.py](https://github.com/hangxuu/Notes-and-Blog/tree/master/codes/effective_python/item61/asnyc_number_guess.py)，对比两个脚本，理解每处``async/await``的使用方法。
