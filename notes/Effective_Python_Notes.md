@@ -494,8 +494,8 @@ print(f"my_queue size: {my_queue.qsize()}")
 通过混合使用线程和协程来一步步把多线程阻塞IO代码重构为协程异步IO代码。
 
 通过例子学习：
-- 多线程版本 []()
-- 多线程协程混合版本1 []()
-- 多线程协程[]()
+- 多线程版本 [item62.py](https://github.com/hangxuu/Notes-and-Blog/blob/master/codes/effective_python/item62/item62.py)
+- 多线程协程混合版本 [item62_mixed.py](https://github.com/hangxuu/Notes-and-Blog/blob/master/codes/effective_python/item62/item62_mixed.py)
+- 协程版本 [item62_asyncio.py](https://github.com/hangxuu/Notes-and-Blog/blob/master/codes/effective_python/item62/item62_asyncio.py)
 
 ### （63）
