@@ -488,3 +488,14 @@ print(f"my_queue size: {my_queue.qsize()}")
 ### （61）Know How to Port Threaded I/O to asyncio
 
 这节作者举了个例子把一个多线程阻塞IO程序修改成了协程异步IO版本。主要说明``with``，``for`` 等一些语言特性都有对应的异步版本。两个脚本见[number_guess.py](https://github.com/hangxuu/Notes-and-Blog/tree/master/codes/effective_python/item61/number_guess.py) 和 [asnyc_number_guess.py](https://github.com/hangxuu/Notes-and-Blog/tree/master/codes/effective_python/item61/asnyc_number_guess.py)，对比两个脚本，理解每处``async/await``的使用方法。
+
+### （62）Mix Threads and Coroutines to Ease the Transition to asyncio
+
+通过混合使用线程和协程来一步步把多线程阻塞IO代码重构为协程异步IO代码。
+
+通过例子学习：
+- 多线程版本 []()
+- 多线程协程混合版本1 []()
+- 多线程协程[]()
+
+### （63）

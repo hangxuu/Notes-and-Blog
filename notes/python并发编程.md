@@ -104,11 +104,14 @@ def download_many_thread3(alnum, total):
 ### 协程怎么用
 
 ## 多线程及协程的一些示例代码
-一个网络下载程序的单线程，多线程以及协程版本。上文中的dai'ma
-
+一个网络下载程序的单线程，多线程以及协程版本。上文中的代码片段即来自这些脚本。
 - 普通单线程版本 [download_normal.py](https://github.com/hangxuu/Notes-and-Blog/blob/master/codes/concurrency/download_normal.py)
 - 多线程版本 [download_thread.py](https://github.com/hangxuu/Notes-and-Blog/blob/master/codes/concurrency/download_thread.py)
 - 以及协程版本 [download_asyncio.py](https://github.com/hangxuu/Notes-and-Blog/blob/master/codes/concurrency/download_asyncio.py).
+
+fluent python 中一个线程和协程对比的例子
+- 线程版本 [spinner_thread.py](https://github.com/hangxuu/Notes-and-Blog/blob/master/codes/concurrency/spinner_thread.py)
+- 协程版本 [spinner_asyncio.py](https://github.com/hangxuu/Notes-and-Blog/blob/master/codes/concurrency/spinner_asyncio.py)
 
 ## 参考资料
 - [也来谈谈协程](https://zhuanlan.zhihu.com/p/147608872)
