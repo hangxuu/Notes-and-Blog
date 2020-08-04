@@ -498,4 +498,31 @@ print(f"my_queue size: {my_queue.qsize()}")
 - 多线程协程混合版本 [item62_mixed.py](https://github.com/hangxuu/Notes-and-Blog/blob/master/codes/effective_python/item62/item62_mixed.py)
 - 协程版本 [item62_asyncio.py](https://github.com/hangxuu/Notes-and-Blog/blob/master/codes/effective_python/item62/item62_asyncio.py)
 
-### （63）
+### （63）Avoid Blocking the asyncio Event Loop to Maximize Responsiveness
+
+避免阻塞客户代码与 asyncio 事件循环共用的唯一线程。在 item62 的例子中，与输出文件相关的操作在主线程的事件循环中调用。而这些操作都是阻塞型的（访问本地文件系统会阻塞）。所以，当执行这些系统调用时，整个程序都会被阻塞，浪费不必要的CPU算力。
+```python
+async def run_tasks(handles, interval, output_path):
+    with open(output_path, 'wb') as output:
+
+        async def write_async(data):
+            output.write(data)
+    ......
+```
+解决方法：``asyncio`` 的事件循环在背后维护着一个`` ThreadPoolExecutor`` 对象，我们可以调用 ``run_in_executor`` 方法，把可调用的对象发给它执行。对于简单的情形，这种做法已经够用。如果情形复杂（如本例，``open`` ,`` write``等操作并未封装在某个函数内，而使分散在各处），则可以按该节作者示例：定义自己的``Thread``子类，在自己的线程中完成所有这些耗时的系统调用，以不影响主线程的正常运行。
+
+书中示例代码见： [item63.py](https://github.com/hangxuu/Notes-and-Blog/blob/master/codes/effective_python/item63/item63.py)
+
+
+### （64）Consider concurrent.futures for True Parallelism
+
+多线程或者协程都只是对IO密集型应用的优化。它们仍受制于GIL，只能使用一个CPU核心。对于CPU密集型应用，我们需要同时使用多个CPU核心，实现真并行。
+
+有以下三个选择，使用优先级由高至低：
+1. ``concurrent.futures`` 的 ``ProcessPoolExecutor`` 类。
+2. ``multiprocessing`` 模块。
+3. 编写C扩展实现计算部分。
+
+当进程间需要交互的数据越少，以及每个进程的计算量都比较大的时候，多进程才能带来比较大的性能提升（毕竟进程间数据传输也是需要时间的）。
+
+示例代码见：[item64.py](https://github.com/hangxuu/Notes-and-Blog/blob/master/codes/effective_python/item64/item64.py)

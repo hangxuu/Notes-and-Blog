@@ -103,6 +103,10 @@ def download_many_thread3(alnum, total):
 
 ### 协程怎么用
 
+
+
+fluent python 里的一段话能帮大家通俗理解 ``asyncio`` 的使用方法：使用 asyncio 包时，我们编写的异步代码中包含由 asyncio 本身驱动的协程（即委派生成器），而生成器最终把职责委托给 asyncio 包或第三方库（如 aiohttp）中的协程。这种处理方式相当于架起了管道，让 asyncio 事件循环（通过我们编写的协程）驱动执行低层异步 I/O 操作的库函数。
+
 ## 多线程及协程的一些示例代码
 一个网络下载程序的单线程，多线程以及协程版本。上文中的代码片段即来自这些脚本。
 - 普通单线程版本 [download_normal.py](https://github.com/hangxuu/Notes-and-Blog/blob/master/codes/concurrency/download_normal.py)
