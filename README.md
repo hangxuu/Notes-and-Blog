@@ -7,8 +7,8 @@
 ## 软件工程
 - [设计模式](https://github.com/hangxuu/Notes-and-Blog/blob/master/notes/python%E4%B8%AD%E7%9A%84%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F.md)
 ## 数据库与搜索组件
-- [MySQL 相关](https://github.com/hangxuu/Notes-and-Blog/blob/master/notes/MySQL.md)
-- [mongoDB 相关](https://github.com/hangxuu/Notes-and-Blog/blob/master/notes/mongoDB.md)
+<!-- - [MySQL 相关](https://github.com/hangxuu/Notes-and-Blog/blob/master/notes/MySQL.md) -->
+<!-- - [mongoDB 相关](https://github.com/hangxuu/Notes-and-Blog/blob/master/notes/mongoDB.md) -->
 - [Elasticsearch 相关](https://github.com/hangxuu/Notes-and-Blog/blob/master/notes/Elasticsearch.md)
 ## Haskell系列
 - [懂一点 Haskell（一）](https://github.com/hangxuu/Notes-and-Blog/blob/master/notes/%E6%87%82%E4%B8%80%E7%82%B9Haskell%EF%BC%88%E4%B8%80%EF%BC%89.md)
