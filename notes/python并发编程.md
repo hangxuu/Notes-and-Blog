@@ -140,12 +140,12 @@ asyncio.run(main())
 上例就是由 ``asyncio`` 驱动 ``main`` 协程，然后协程里一直 ``await`` 到执行异步IO操作的库函数 ``asyncio.sleep(1)``，这个 ``sleep`` 函数模拟生产者的生产过程。当生产完成后，事件循环把响应发给等待结果的消费者。得到响应后，消费者消费掉生产者的东西（打印输出），事件循环又把相应发给 ``main``协程，``main``协程记录已生产元素的件数（``i += 1``），向前执行到下一个 ``await`` 处，然后让出时间片（把控制权还给主循环）。
 
 ## 多线程及协程的一些示例代码
-一个网络下载程序的单线程，多线程以及协程版本。上文中的代码片段即来自这些脚本。
+一个网络下载程序的单线程，多线程以及协程版本。上文中的部分代码片段即来自这些脚本。
 - 普通单线程版本 [download_normal.py](https://github.com/hangxuu/Notes-and-Blog/blob/master/codes/concurrency/download_normal.py)
 - 多线程版本 [download_thread.py](https://github.com/hangxuu/Notes-and-Blog/blob/master/codes/concurrency/download_thread.py)
-- 以及协程版本 [download_asyncio.py](https://github.com/hangxuu/Notes-and-Blog/blob/master/codes/concurrency/download_asyncio.py).
+- 协程版本 [download_asyncio.py](https://github.com/hangxuu/Notes-and-Blog/blob/master/codes/concurrency/download_asyncio.py).
 
-fluent python 中一个线程和协程对比的例子
+《fluent python》中一个线程和协程对比的例子。
 - 线程版本 [spinner_thread.py](https://github.com/hangxuu/Notes-and-Blog/blob/master/codes/concurrency/spinner_thread.py)
 - 协程版本 [spinner_asyncio.py](https://github.com/hangxuu/Notes-and-Blog/blob/master/codes/concurrency/spinner_asyncio.py)
 
