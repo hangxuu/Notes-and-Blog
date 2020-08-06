@@ -152,4 +152,4 @@ asyncio.run(main())
 ## 参考资料
 - [也来谈谈协程](https://zhuanlan.zhihu.com/p/147608872)
 - 《fluent python》 chapter 16 - 18
-- 《Effective python 2nd》 chapter 7
+- 《Effective python 2ed》 chapter 7
