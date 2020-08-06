@@ -4,6 +4,7 @@
 * [一、Pythonic](#Pythonic)
 * [二、列表和字典](#列表和字典)
 * [三、并发与并行](#并发与并行)
+* [四、鲁棒性与性能](#鲁棒性与性能)
 <!-- GFM-TOC -->
 
 ## Pythonic
@@ -526,3 +527,81 @@ async def run_tasks(handles, interval, output_path):
 当进程间需要交互的数据越少，以及每个进程的计算量都比较大的时候，多进程才能带来比较大的性能提升（毕竟进程间数据传输也是需要时间的）。
 
 示例代码见：[item64.py](https://github.com/hangxuu/Notes-and-Blog/blob/master/codes/effective_python/item64/item64.py)
+
+## 鲁棒性与性能
+
+### （65）Take Advantage of Each Block in try/except/else/finally
+每个功能块的作用如下：
+- ``try``: 执行可能会发生异常的语句（一般是自己能想到的异常）。
+- ``except``: ``try`` 中发生异常时执行。捕捉 ``try`` 中发生的异常，处理掉或者传到上游函数。
+- ``else``: ``try`` 中没有异常发生时执行。把不会引起异常的代码和 ``try/except`` 分开，程序功能更清晰，也更好排查是 ``try`` 中哪一句引发了异常。
+- finally：无论如何都会执行。一般做最后的清理工作。
+
+### （66）Consider contextlib and with Statements for Reusable try/finally Behavior
+
+``with``语句可以方便简洁地实现``try/finally``的功能。如下例：
+```python
+from threading import Lock
+
+lock = Lock()
+
+# with statement
+with lock:
+    # do something
+    
+    
+# try/finally statement
+
+lock.acquire()
+try:
+    # do something
+finally:
+    lock.release()
+```
+使用``with``语句程序更清晰，``with lock``通俗点说就是：在我得到锁的语境下，干接下来的一系列事情。除了内置支持 ``with`` 的函数和类外，我们也可以自定义支持 ``with`` 的函数和类。类的话我们是在类中实现``__enter__``, ``__exit__``这两个魔法方法。对于函数，我们可以使用 ``contextlib``模块的``contextmanager``装饰器。
+
+示例如下：
+```python
+from contextlib import contextmanager
+
+@contextmanager 
+def debug_logging(level): 
+    logger = logging.getLogger() 
+    old_level = logger.getEffectiveLevel() 
+    logger.setLevel(level) 
+    try:
+        yield 
+    finally: 
+        logger.setLevel(old_level)
+```
+这里 ``yield`` 没有返回值。所以我们只能这样使用它：
+```python
+with debug_logging(logging.DEBUG):
+    # do something
+```
+就是说我们只能在这个上下文语境中做一些事，而不能直接与这个上下文交互。其实我们更常这样使用 ``with``：
+```python
+with open(filename, 'w', encoding='utf-8') as f:
+    f.write('something')
+```
+我们不止需要打开文件，更主要的是我们需要对文件进行操作。这就需要我们定义的函数在 ``yield`` 处返回值，而返回的值就赋给了 ``as`` 后面的变量。 
+```python
+@contextmanager 
+def log_level(level, name): 
+    logger = logging.getLogger(name) 
+    old_level = logger.getEffectiveLevel() 
+    logger.setLevel(level) 
+    try:
+        yield logger 
+    finally: 
+        logger.setLevel(old_level)
+```
+这里 ``yield`` 处返回了我们设置了安全级别的 ``logger`` 对象，这样我们在该语境下就可以使用它来写日志而不影响整体日志的安全等级，而上面那个函数则修改的是整体日志的安全等级。有了返回值，我们就可以这样写了：
+```python
+with log_level(logging.DEBUG, 'my_log') as mylogger:
+    mylogger.debug("debug info, this will print")    # 只修改 mylogger 的安全等级
+    logging.debug("This will not print")    # 全局 logging 不受影响
+```
+
+### （67）Use datetime Instead of time for Local Clocks
+

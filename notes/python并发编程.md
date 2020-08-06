@@ -39,7 +39,7 @@ with futures.ProcessPoolExecutor() as executor:
 如果使用场景较复杂，例如需要在进程之间传递数据，那么可以使用更底层的``multiprocessing``模块来处理。
 
 ## 多线程
-线程是CPU独立调度的基本单位。
+线程是操作系统独立调度的基本单位。
 
 ### 什么时候用多线程
 GIL：全局解释器锁。Cpython执行python程序分为两步：1，把源程序翻译成字节码；2，使用基于堆栈的解释器运行字节码（字节码解释器的状态必须在python程序运行时保持一致）。Cpython解释器本身就不是线程安全的。因此需要加锁。GIL是互斥锁，以防止Cpython受到抢占式多线程的影响。
