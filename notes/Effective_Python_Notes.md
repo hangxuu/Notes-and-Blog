@@ -361,6 +361,29 @@ In [5]: print(one, nine, other)
 1 9 [2, 3, 4, 5, 6, 7, 8]
 ```
 
+### （14）Sort by Complex Criteria Using the key Parameter
+
+这个平时已经用的非常熟练了，就放两个例子：
+```python
+items = [(34, 'taylor'),
+         (43, 'bob'),
+         (23, 'hans'),
+         (43, 'will')]
+
+# 按姓名升序，按年龄逆序
+items.sort(key=lambda a: (a[1], -a[0]))
+
+# 按姓名逆序，按年龄升序
+items.sort(key=lambda a: a[0])
+items.sort(key=lambda a: a[1], reverse=True)
+
+```
+对于多标准排序，如果可以用元组直接实现，就直接实现。实在不行再用多个``sort``。因为``sort``是稳定的，因此可以这样干。但要记住：``sort``调用的顺序和排序标准的顺序相反。
+
+### （15）Be Cautious When Relying on dict Insertion Ordering
+# TODO
+
+
 ## 并发与并行
 
 ### （52）使用``subprocess``模块管理子进程
