@@ -3,6 +3,7 @@
 <!-- GFM-TOC -->
 * [一、Pythonic](#Pythonic)
 * [二、列表和字典](#列表和字典)
+* [三、函数](#函数)
 * [七、并发与并行](#并发与并行)
 * [八、鲁棒性与性能](#鲁棒性与性能)
 <!-- GFM-TOC -->
@@ -381,8 +382,64 @@ items.sort(key=lambda a: a[1], reverse=True)
 对于多标准排序，如果可以用元组直接实现，就直接实现。实在不行再用多个``sort``。因为``sort``是稳定的，因此可以这样干。但要记住：``sort``调用的顺序和排序标准的顺序相反。
 
 ### （15）Be Cautious When Relying on dict Insertion Ordering
-# TODO
 
+从python3.7之后，字典会保持元素的插入顺序（和 ``collections.OrderedDict`` 功能类似）。但为了兼容性，如果你需要保持元素的插入顺序，还是应该先考虑 ``OrderedDict``。
+
+这节知道了 ``mypy`` 静态类型检查器（需pip安装），可以强制进行类型检查。例子：
+```python
+# hello.py
+def hello(name: str) -> None:
+    print(f"hello {name}")
+    
+hello(23)
+
+# terminal
+> python3 -m mypy --strict hello.py
+hello.py:6: error: Argument 1 to "hello" has incompatible type "int"; expected "str"
+Found 1 error in 1 file (checked 1 source file)
+```
+
+强制做类型检查的话，有类型错误会直接报错，而不会运行程序。
+
+### （16）Prefer get Over in and KeyError to Handle Missing Dictionary Keys
+用 ``get`` 处理键不存在的情况，不要用 ``setdefault`` 。如果一定要用 ``setdefault`` 的功能，请用 ``defaultdict`` 代替。
+
+### （17）Prefer defaultdict Over setdefault to Handle Missing Items in Internal State
+看一下 ``defaultdict`` 和 ``setdefault`` 的区别：
+```python
+# setdefault
+class Visits1:
+    def __init__(self):
+        self.data = {}
+
+    def add(self, country, city):
+        self.data.setdefault(country, set()).add(city)
+        
+# defaultdict
+from collections import defaultdict
+class Visits2:
+    def __init__(self):
+        self.data = defaultdict(set)
+
+    def add(self, country, city):
+        self.data[country].add(city)
+```
+看出来了吗？对于 ``set`` 的使用，一个是函数（``defaultdict``），一个是函数调用（``setdefault``），这也就是说，对于``Visits1``，每一次调用``add``都会生成一个``set``对象，而``Visits2``则只有在需要时才会创建对象。所以一般情况下 ``defaultdict`` 会比 ``setdefault`` 快一些。如果你是字典的创建者，遇到它们符合的应用场景，请选择 ``defaultdict`` 。
+
+### （18）Know How to Construct Key-Dependent Default Values with ``__missing__``
+根据特定的 key 生成特定的 value，这一点 defaultdict 无法做到。因为它只能接受无参数函数。想要完成这个功能，你可以定义 dict 的实现 ``__missing__`` 方法的子类，该方法接收 key 作为参数，生成一个特定的 value， 然后把该项插入字典， 最后返回 value。
+
+```python
+class Pictures(dict):
+    def __missing__(self, key):
+        value = generate_value(key) # 该函数根据 key 生成特定 value
+        self[key] = value # 该项存入字典
+        return value
+```
+
+## 函数
+
+### （19）Never Unpack More Than Three Variables When Functions Return Multiple Values
 
 ## 并发与并行
 
