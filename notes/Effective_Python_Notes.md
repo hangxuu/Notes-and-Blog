@@ -441,6 +441,25 @@ class Pictures(dict):
 
 ### （19）Never Unpack More Than Three Variables When Functions Return Multiple Values
 
+当函数返回多个值（元组）时，函数调用方（自己或他人）可以直接对返回值进行序列解包。但如果元组项超过三个，就不要直接返回元组了，定义一个结果类或者 ``namedtuple`` 进行返回，调用方会更清晰，避免产生难找的 bug 。
+
+### （20）Prefer Raising Exceptions to Returning None
+
+当 None 有特殊含义时，就不要默默的返回 None 了，这时应该写好文档（任何时候都该写好文档），报异常给调用方，让调用方来处理。下例是一个定义完好的函数该有的长相。
+```python
+def careful_divide(a: float, b: float) -> float:
+    """Divides a by b
+
+    Raises:
+        ValueError: When the input cannot be divided.
+    """
+    try:
+        return a / b
+    except ZeroDivisionError as e:
+        raise ValueError("Invalid inputs")
+```
+
+
 ## 并发与并行
 
 ### （52）使用``subprocess``模块管理子进程
