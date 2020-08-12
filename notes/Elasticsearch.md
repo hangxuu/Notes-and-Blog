@@ -1,5 +1,7 @@
 <!-- GFM-TOC -->
-* [一、查询 DSL](#查询DSL)
+* [二、查询 DSL](#查询DSL)
+* [三、参考资料](#参考资料)
+
 <!-- GFM-TOC -->
 
 ## 查询 DSL
@@ -462,4 +464,7 @@ body2 = {
 
 可以看出，该query语句只匹配了第一个文档body，而没有匹配第二个文档body2。符合我上面的解释。
 
+## 参考资料
+
+- [终于有人把Elasticsearch原理讲透了！](https://zhuanlan.zhihu.com/p/62892586)
 

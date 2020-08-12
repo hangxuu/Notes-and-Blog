@@ -459,6 +459,51 @@ def careful_divide(a: float, b: float) -> float:
         raise ValueError("Invalid inputs")
 ```
 
+### （21）Know How Closures Interact with Variable Scope
+
+函数A内部构建了函数B，函数B加上函数B内部使用的函数A的局部变量就构成了一个闭包。这是从函数式编程来的概念。比如下面的 Haskell 函数，``genIfEven`` 函数的参数 ``f`` 被 lambda 表达式捕获，此时这个 lambda 就是一个闭包，即 ``genIfEven`` 函数返回一个闭包。
+```haskell
+genIfEven f = (\x -> ifEven f x)
+```
+到了python中，用法也是一样的，请看下例：
+```python
+def sort_priority(values, group):
+    found = False
+
+    def helper(x):
+        nonlocal found
+        if x in group:
+            found = True
+            return 0, x
+        return 1, x
+    values.sort(key=helper)
+    return found
+
+numbers = [5, 4, 32, 7, 6, 1, 2]
+group = {7, 5}
+sort_priority(numbers, group)
+
+```
+
+``helper`` 函数和 ``found``，``group`` 变量一起就构成了一个闭包。``helper`` 函数可以直接访问 ``sort_priority`` 函数的变量，但如果要赋值（改变变量的值），就需要给被赋值的变量做 ``nonlocal`` 声明（因为作用域原因，如果不声明，python 会把其解释为下定义，即新定义了一个局部变量）。
+
+其实闭包更多是上面 Haskell 例子中的那种用法，即作为返回值使用。把上面的 python 例子修改一下如下：
+```python
+def sort_priority(group):
+    def helper(x):
+        if x in group:
+            return 0, x
+        return 1, x
+    return helper
+
+numbers = [5, 4, 32, 7, 6, 1, 2]
+group = {7, 5}
+rule = sort_priority(group)    # rule 即是一个闭包
+numbers.sort(key=rule)
+```
+为了程序的可读性，闭包还是少用为妙。
+
+### （22）Reduce Visual Noise with Variable Positional Arguments
 
 ## 并发与并行
 
