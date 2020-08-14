@@ -505,6 +505,21 @@ numbers.sort(key=rule)
 
 ### （22）Reduce Visual Noise with Variable Positional Arguments
 
+对于多个可选参数，使用可变位置参数（\*args），以减少视觉污染。一个可选参数的话，还是直接用默认值吧（args=None）。需要说明的是，可选位置参数在传入函数之前会被转化为元组，所以不要传入生成器！
+
+带可变位置参数的函数定义大概长这个样子：
+```python
+def func(name, *values):
+    if not values:
+        print(f"Hello {name}")
+    else:
+        val_str = ' '.join(str(item) for item in values)
+        print(f"hello {val_str}")
+```
+
+### （23）Provide Optional Behavior with Keyword Arguments
+
+
 ## 并发与并行
 
 ### （52）使用``subprocess``模块管理子进程
