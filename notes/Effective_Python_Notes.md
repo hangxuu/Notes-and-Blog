@@ -518,6 +518,15 @@ def func(name, *values):
 ```
 
 ### （23）Provide Optional Behavior with Keyword Arguments
+当你需要为已有函数添加新功能的时候，可以添加关键字参数，这样不会影响原来使用该函数的代码。简单的修改可以这么干，如果修改很多，我建议还是不要动原函数，重新封装一个函数为妙。
+
+### （24）Use None and Docstrings to Specify Dynamic Default Arguments
+
+函数的默认参数只会在模块加载时计算一次。所以不要使用动态值做函数的默认值（例如 [], {}, datetime.now()）！应该使用 None 代替！
+
+这个其实没什么说的，编程时养成良好的习惯即可。
+
+### （25）Enforce Clarity with Keyword-Only and Positional-Only Arguments
 
 
 ## 并发与并行
