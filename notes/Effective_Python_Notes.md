@@ -566,6 +566,10 @@ def fibonacci(n):
 ## 推导式与生成器
 
 ### （27）Use Comprehensions Instead of map and filter
+列表推导式，太常用就不多费笔墨了。
+
+### （28）Avoid More Than Two Control Subexpressions in Comprehensions
+同上。当列表推导式变得复杂（超过两个 ``for/if`` 表达式），应该用普通的 ``for/if`` 进行替换，以提高程序的可读性。
 
 ## 并发与并行
 
