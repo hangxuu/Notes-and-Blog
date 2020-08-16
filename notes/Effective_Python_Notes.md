@@ -4,6 +4,7 @@
 * [一、Pythonic](#Pythonic)
 * [二、列表和字典](#列表和字典)
 * [三、函数](#函数)
+* [四、推导式与生成器](#推导式与生成器)
 * [七、并发与并行](#并发与并行)
 * [八、鲁棒性与性能](#鲁棒性与性能)
 <!-- GFM-TOC -->
@@ -522,12 +523,49 @@ def func(name, *values):
 
 ### （24）Use None and Docstrings to Specify Dynamic Default Arguments
 
-函数的默认参数只会在模块加载时计算一次。所以不要使用动态值做函数的默认值（例如 [], {}, datetime.now()）！应该使用 None 代替！
+函数的默认参数只会在模块加载时计算一次。所以不要使用动态值做函数的默认值（例如 ``[], {}, datetime.now()``）！应该使用 ``None`` 代替！
 
 这个其实没什么说的，编程时养成良好的习惯即可。
 
 ### （25）Enforce Clarity with Keyword-Only and Positional-Only Arguments
 
+强制使用位置参数和关键字参数来降低程序耦合性。以下面函数签名示例：
+```python
+def safe_division_e(numerator, denominator, /, ndigits=10, *, 
+                    ignore_overflow=False, ignore_zero_division=False):
+    pass
+```
+对 ``/`` 前的参数，调用方只能以位置参数提供。``*`` 之后的参数调用方只能以关键字参数的形式提供。``/`` 与 ``*`` 之间的参数和普通函数一样，既可以以位置参数也可以以关键字参数给出。
+
+
+### （26）Define Function Decorators with functools.wraps
+
+什么是装饰器？装饰器本质上就是一次函数调用，它在模块加载时执行。可以用来实现参数检查，函数注册，添加日志等等功能。如果需要根据不同场景实现不同功能，可以使用带参数的装饰器（或使用装饰器内部变量），返回的函数中使用了这个参数，即可根据不同参数实现不同的功能。这实际上就是返回了一个闭包（见item21）。而闭包就是一个带状态的函数。
+```python
+import functools
+
+def trace(func):
+    i = 0
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        nonlocal i
+        result = func(*args, **kwargs)
+        i += 1
+        print(f"{' '*i}{func.__name__}({args!r}, {kwargs!r}) -> {result!r}")
+        return result
+    return wrapper
+
+@trace
+def fibonacci(n):
+    if n in (0, 1):
+        return n
+    return fibonacci(n - 1) + fibonacci(n - 2)
+```
+使用 ``functools.wraps`` 定义装饰器，能把原函数的元数据（``metadata``）保留。而你确实应该这么做。
+
+## 推导式与生成器
+
+### （27）Use Comprehensions Instead of map and filter
 
 ## 并发与并行
 
