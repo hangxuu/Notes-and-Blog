@@ -571,6 +571,29 @@ def fibonacci(n):
 ### （28）Avoid More Than Two Control Subexpressions in Comprehensions
 同上。当列表推导式变得复杂（超过两个 ``for/if`` 表达式），应该用普通的 ``for/if`` 进行替换，以提高程序的可读性。
 
+### （29）Avoid Repeated Work in Comprehensions by Using Assignment Expressions
+
+把海象运算符用到推导式里，也是为了避免重复计算。但是要尽量避免将其用到条件语句外的其他语句，这样会引起变量名泄露（和 for 语句一样）。见下例：
+```python
+In [1]: doubled = [(half := item * 2) for item in range(5)]
+# half 变量泄漏到外层作用域
+In [2]: half
+Out[2]: 8
+In [4]: for item in range(5):
+   ...:     print(item)
+   ...:
+0
+1
+2
+3
+4
+# item 变量泄漏到 for 循环外部
+In [5]: item
+Out[5]: 4
+```
+
+### （30）Consider Generators Instead of Returning Lists
+
 ## 并发与并行
 
 ### （52）使用``subprocess``模块管理子进程
