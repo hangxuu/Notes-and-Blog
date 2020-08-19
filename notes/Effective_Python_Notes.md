@@ -598,6 +598,38 @@ Out[5]: 4
 
 建议：对于可以构造成 pipeline 的函数组（类似生产者-消费者模型），使用生成器函数，否则使用普通函数。
 
+### （31）Be Defensive When Iterating Over Arguments
+
+（30）说了，生成器是有状态的，不能重用。所以当把生成器作为参数传入函数时，如果函数体内需要多次迭代该参数，就会导致错误。这里使用生成器，主要是为了节省内存，对于数据不大的情况，还是直接使用列表语义更清晰。但如果到了非省内存不可的情况，也还是有解决办法的。就是不使用简单的生成器，而是实现自己的可迭代容器类型（实现了迭代器协议的容器类就是可迭代容器。list 就是一种可迭代容器类型）。如下例：
+```python
+class ReadVisits:
+    def __init__(self, data_path):
+        self.data_path = data_path
+        
+    def __iter__(self):
+        with open(self.data_path) as f:
+            for line in f:
+                yield int(line)
+```
+上面说的复杂，其实，把类的 ``__iter__``方法实现为生成器即实现了迭代器协议。此时该类就是一个可迭代容器类。容器类的使用方法如下例所示：
+```python
+from collections.abc import Iterator
+
+def nomalize(numbers):
+    if isinstance(numbers, Iterator):
+        raise TypeError('Must supply a container!')
+    total = sum(numbers)
+    result = []
+    for value in numbers:
+        percent = 100 * value / total
+        result.append(percent)
+    return result
+
+visits = ReadVisits(file_path)
+percentages = nomalize(visits)
+assert sum(percentages) == 100.0
+```
+上面 ``normalize`` 函数保证传入的参数必须是容器类型，如果传入了普通的迭代器，就会引发异常。
 ## 并发与并行
 
 ### （52）使用``subprocess``模块管理子进程
