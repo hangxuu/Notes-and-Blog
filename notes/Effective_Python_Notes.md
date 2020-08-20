@@ -630,6 +630,10 @@ percentages = nomalize(visits)
 assert sum(percentages) == 100.0
 ```
 上面 ``normalize`` 函数保证传入的参数必须是容器类型，如果传入了普通的迭代器，就会引发异常。
+
+### （32）Consider Generator Expressions for Large List Comprehensions
+如题，对于大的列表推导式，可以用生成器表达式替代。只需把 ``[]`` 换成 ``()`` 就行。这样可以节省内存。但要记住，生成器是有状态的！
+
 ## 并发与并行
 
 ### （52）使用``subprocess``模块管理子进程
