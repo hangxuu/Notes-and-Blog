@@ -645,6 +645,12 @@ assert sum(percentages) == 100.0
 
 用类虽然代码行数可能增加了，但可读性也得到了明显的提升。
 
+### （38）Accept Functions Instead of Classes for Simple Interfaces
+
+用函数做接口，如果想顺便完成其他功能，可以利用函数的副作用来实现。建议使用实现了 ``__call__`` 方法的类（可调用对象），而不要使用闭包。
+示例见 [count_missing](https://github.com/hangxuu/Notes-and-Blog/tree/master/codes/effective_python/item38/item38.py)
+
+
 ## 并发与并行
 
 ### （52）使用``subprocess``模块管理子进程
