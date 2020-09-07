@@ -5,6 +5,7 @@
 * [二、列表和字典](#列表和字典)
 * [三、函数](#函数)
 * [四、推导式与生成器](#推导式与生成器)
+* [五、类和接口](#类和接口)
 * [七、并发与并行](#并发与并行)
 * [八、鲁棒性与性能](#鲁棒性与性能)
 <!-- GFM-TOC -->
@@ -637,6 +638,12 @@ assert sum(percentages) == 100.0
 ### （33）Compose Multiple Generators with yield from
 如果需要组合多个生成器，请使用 ``yield from`` 。
 
+## 类和接口
+
+### （37）Compose Classes Instead of Nesting Many Levels of Built-in Types
+当你的程序中出现内置数据类型的嵌套，比如，字典里套字典。就应该考虑用多个自定义类（或 namedtuple）来实现了。
+
+用类虽然代码行数可能增加了，但可读性也得到了明显的提升。
 
 ## 并发与并行
 
