@@ -648,7 +648,12 @@ assert sum(percentages) == 100.0
 ### （38）Accept Functions Instead of Classes for Simple Interfaces
 
 用函数做接口，如果想顺便完成其他功能，可以利用函数的副作用来实现。建议使用实现了 ``__call__`` 方法的类（可调用对象），而不要使用闭包。
-示例见 [count_missing](https://github.com/hangxuu/Notes-and-Blog/tree/master/codes/effective_python/item38/item38.py)
+示例见 [count_missing](https://github.com/hangxuu/Notes-and-Blog/tree/master/codes/effective_python/item38/item38.py) 。当然，也是为了可读性。
+
+### （39）Use @classmethod Polymorphism to Construct Objects
+使用 ``@classmethod`` 定义类的替代构造函数。（构造函数多态，C++中一个类可以有多个构造函数，但python只有一个 ``__init__``，可以通过类方法定义多个构造函数。）
+
+示例见 [map_reduce](https://github.com/hangxuu/Notes-and-Blog/tree/master/codes/effective_python/item39/item39.py) 。
 
 
 ## 并发与并行
