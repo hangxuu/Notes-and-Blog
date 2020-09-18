@@ -655,6 +655,12 @@ assert sum(percentages) == 100.0
 
 示例见 [map_reduce](https://github.com/hangxuu/Notes-and-Blog/tree/master/codes/effective_python/item39/item39.py) 。
 
+### （40）Initialize Parent Classes with super
+使用 ``super`` 初始化父类。
+
+不使用 super ，显式调用父类构造函数时，父类初始化顺序与父类构造函数调用顺序保持一致，而与继承顺序无关。对于菱形继承，公共父类构造函数会被调用2次。
+
+理解 python MRO（方法解析顺序）。
 
 ## 并发与并行
 
