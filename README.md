@@ -1,10 +1,10 @@
 # 读书笔记
-## 技术书籍
-- [Effective Python 第二版笔记](https://github.com/hangxuu/blog/blob/master/notes/Effective_Python_Notes.md)
 
-## 其他书籍
+- [Effective Python 第二版笔记](https://github.com/hangxuu/blog/blob/master/notes/Effective_Python_Notes.md)
+- [数据密集型应用系统设计](https://github.com/hangxuu/blog/blob/master/notes/Designing_data-intensive_applications.md)
 
 *************************************************************
+
 # 我的博客
 
 - [python 避坑不完全指南](https://github.com/hangxuu/Notes-and-Blog/blob/master/notes/python%E9%81%BF%E5%9D%91%E4%B8%8D%E5%AE%8C%E5%85%A8%E6%8C%87%E5%8D%97.md)
