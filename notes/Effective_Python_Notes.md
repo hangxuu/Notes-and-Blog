@@ -638,6 +638,9 @@ assert sum(percentages) == 100.0
 ### （33）Compose Multiple Generators with yield from
 如果需要组合多个生成器，请使用 ``yield from`` 。
 
+### （34）Avoid Injecting Data into Generators with send
+函数中如果需要动态值，不要使用 ``send`` 和 ``yield`` 实现，用迭代器来实现。**迭代器是有状态的，这一点有时也能为我们所用！**
+
 ## 类和接口
 
 ### （37）Compose Classes Instead of Nesting Many Levels of Built-in Types
