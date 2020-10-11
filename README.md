@@ -4,7 +4,6 @@
 - [数据密集型应用系统设计](https://github.com/hangxuu/blog/blob/master/notes/Designing_data-intensive_applications.md)
 - [The Linux Command Line](https://github.com/hangxuu/blog/blob/master/notes/the_linux_command_line.md)
 
-*************************************************************
 
 # 我的博客
 
