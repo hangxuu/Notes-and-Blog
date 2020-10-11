@@ -639,7 +639,25 @@ assert sum(percentages) == 100.0
 如果需要组合多个生成器，请使用 ``yield from`` 。
 
 ### （34）Avoid Injecting Data into Generators with send
-函数中如果需要动态值，不要使用 ``send`` 和 ``yield`` 实现，用迭代器来实现。**迭代器是有状态的，这一点有时也能为我们所用！**
+函数中如果需要动态值，不要使用 ``send`` 和 ``yield`` 实现，用迭代器来实现。**迭代器是有状态的，这一点有时也能为我们所用！** 
+
+### （35）Avoid Causing State Transitions in Generators with throw
+```python
+class Timer: 
+    def __init__(self, period): 
+        self.current = period 
+        self.period = period
+    
+    def reset(self): 
+        self.current = self.period
+
+    def __iter__(self): 
+        while self.current: 
+            self.current -= 1 
+            yield self.current
+```
+如上例，不要用``throw``做状态转换，通过把``__iter__``方法实现成闭包，以及提供一个状态转换方法（``reset``）来实现状态转换。
+
 
 ## 类和接口
 
