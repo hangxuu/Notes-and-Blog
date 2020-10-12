@@ -658,6 +658,51 @@ class Timer:
 ```
 如上例，不要用``throw``做状态转换，通过把``__iter__``方法实现成闭包，以及提供一个状态转换方法（``reset``）来实现状态转换。
 
+### （36）Consider itertools for Working with Iterators and Generators
+``itertools``里的函数按功能主要分为三类：
+1. Linking Iterators Together: ``chain, repeat, cycle, tee, zip_longest``
+2. Filtering Items from an Iterator: ``islice, takewhile, dropwhile, filterfalse``
+3. Producing Combinations of Items from Iterators: ``accumulate, product, permutations, combinations, combinations_with_replacement``
+
+使用示例：
+```python
+In [5]: import itertools
+
+In [6]: it = itertools.chain([1,2,3], [4,5,6])
+
+In [7]: print(list(it))
+[1, 2, 3, 4, 5, 6]
+
+In [8]: it = itertools.repeat('hello', 3)
+
+In [9]: print(list(it))
+['hello', 'hello', 'hello']
+
+In [10]: it = itertools.cycle([1, 2])
+
+In [11]: result = [next(it) for _ in range(10)]
+
+In [12]: result
+Out[12]: [1, 2, 1, 2, 1, 2, 1, 2, 1, 2]
+
+In [13]: it1, it2 = itertools.tee(['first', 'second'], 2)
+
+In [14]: print(list(it1))
+['first', 'second']
+
+In [15]: print(list(it2))
+['first', 'second']
+
+In [16]: keys = ['one', 'two', 'three']
+
+In [17]: values = [1, 2]
+
+In [18]: it = itertools.zip_longest(keys, values, fillvalue='nope')
+
+In [19]: print(list(it))
+[('one', 1), ('two', 2), ('three', 'nope')]
+```
+其它例子就不贴了，主要是看个眼熟，多用就记住了。
 
 ## 类和接口
 
@@ -682,6 +727,8 @@ class Timer:
 不使用 super ，显式调用父类构造函数时，父类初始化顺序与父类构造函数调用顺序保持一致，而与继承顺序无关。对于菱形继承，公共父类构造函数会被调用2次。
 
 理解 python MRO（方法解析顺序）。
+
+
 
 ## 并发与并行
 
