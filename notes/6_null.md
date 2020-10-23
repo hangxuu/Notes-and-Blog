@@ -5,13 +5,13 @@
 注：没按官方题号组织。
 ### Exercises
 2. Create a new directory called missing under /tmp.
-```shell
+```bash
 mkdir /tmp/missing
 ```
 
 
 3. Use touch to create a new file called semester in missing.
-```shell
+```bash
 cd /tmp/missing
 touch semester
 ```
@@ -23,24 +23,28 @@ touch semester
 #!/bin/sh
 curl --head --silent https://missing.csail.mit.edu
 ```
+
 into the file and try to execute the file.
-```shell
+
+```bash
 sh semester # ok
 ./semester # permission denied 需给该文件执行权限
 chmod 777 semester # 给了所有权限
 ./semester # ok
 ```
+
 shebang 的作用，shell 通过它寻找执行该脚本程序的位置。
 
 
 5. Use | and > to write the “last modified” date output by semester into a file called last-modified.txt in your home directory.
-```shell
+
+```bash
 ./semester | grep --ignore-case last-modified | cut --delimiter=' ' -f2- > /home/last-modified.txt
 ```
 
-
 6. Write a command that reads out your laptop battery’s power level or your desktop machine’s CPU temperature from /sys
-```shell
+
+```bash
 # linux on winsows. battery's power
 cat /sys/class/power_supply//battery/capacity
 # 没找到 CPU 温度
@@ -68,7 +72,7 @@ cat /sys/class/power_supply//battery/capacity
 - Files are ordered by recency
 - Output is colorized
 
-```shell
+```bash
 ls -lath --color=auto
 ```
 
