@@ -1,4 +1,4 @@
-# 6.NULL
+# 6.NULL - The Missing Semester of Your CS Education
 [课程主页](https://missing.csail.mit.edu/)
 
 ## The Shell

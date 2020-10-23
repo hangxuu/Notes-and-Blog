@@ -6,4 +6,4 @@
 
 # 课程笔记
 
-- [MIT 6.NULL](https://github.com/hangxuu/blog/blob/master/notes/6_null.md)
+- [MIT 6.NULL - The Missing Semester of Your CS Education](https://github.com/hangxuu/blog/blob/master/notes/6_null.md)
