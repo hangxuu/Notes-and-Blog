@@ -45,3 +45,9 @@ command有四种不同的类型：（1）一个可执行程序，（2）shell bu
 - tail: Output the last part of a file. ``-n 打印后 n 行， -f 实时查看日志文件时使用``.
 - tee: Read from standard input and write to standard output and files. 用于把管道中间的结果保存到文件。
 
+
+### Permissions
+
+- chmod: 修改文件/文件夹权限。常用：7 (rwx), 6 (rw-), 5 (r-x), 4 (r--), and 0 (---).
+
+### Processes

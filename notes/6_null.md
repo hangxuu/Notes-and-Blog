@@ -60,7 +60,7 @@ cat /sys/class/power_supply//battery/capacity
 - ``$?``: Return code of the previous command
 - ``$$``: Process identification number (PID) for the current script
 - ``!!``: Entire last command, including arguments. A common pattern is to execute a command only for it to fail due to missing permissions; you can quickly re-execute the command with sudo by doing sudo !!
-- ``$_``: Last argument from the last command. If you are in an interactive shell, you can also quickly get this value by typing Esc followed by .
+- ``$_``: Last argument from the last command.
 - The return code or exit status is the way scripts/commands have to communicate how execution went. A value of 0 usually means everything went OK; anything different from 0 means an error occurred.
 - command substitution. ``for file in $(ls)``
 - process substitution, ``<( CMD )``, This is useful when commands expect values to be passed by file instead of by STDIN. ``diff <(ls foo) <(ls bar)``
