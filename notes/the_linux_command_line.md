@@ -51,3 +51,7 @@ command有四种不同的类型：（1）一个可执行程序，（2）shell bu
 - chmod: 修改文件/文件夹权限。常用：7 (rwx), 6 (rw-), 5 (r-x), 4 (r--), and 0 (---).
 
 ### Processes
+linux启动过程：1. BIOS开机自检。2. 启动引导过程。3. 加载内核及函数模块。4. 调用init进程。5. 登录。
+
+常用命令：ps, top, jobs, bg, fg, kill, killall, shutdown
+
